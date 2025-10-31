@@ -2,7 +2,7 @@
   <div class="table">
     <div class="table__header-actions">
       <div class="table__search">
-        <input v-model="searchTerm" placeholder="Найти по ФИО..." />
+        <input v-model="searchValue" placeholder="Найти по ФИО..." />
       </div>
 
       <button class="table__add-company-button" @click="onAddCompany">Добавить организацию</button>
@@ -44,28 +44,12 @@
       </tbody>
     </table>
 
-    <div class="pagination">
-      <div class="pagination__pagesize">
-        На странице:
-        <select v-model.number="pageSize">
-          <option v-for="opt in pageSizeOptions" :key="opt" :value="opt">{{ opt }}</option>
-        </select>
-      </div>
-      <div class="pagination__controls" v-if="totalPages > 1">
-        <button :disabled="currentPage === 1" @click="prevPage">‹</button>
-
-        <button
-          v-for="page in totalPages"
-          :key="page"
-          :class="['pagination__page', { 'is-active': page === currentPage }]"
-          @click="setPage(page)"
-        >
-          {{ page }}
-        </button>
-
-        <button :disabled="currentPage === totalPages" @click="nextPage">›</button>
-      </div>
-    </div>
+    <AppTablePagination
+      v-model:pageSize="pageSize"
+      v-model:currentPage="currentPage"
+      :page-size-options="pageSizeOptions"
+      :total-pages="totalPages"
+    />
   </div>
 
   <CompanyModal v-model="companyModalOpened" :company-data="companyData" @close="onCloseModal" @save="onSave"/>
@@ -73,6 +57,7 @@
 
 <script setup lang="ts">
 import CompanyModal from '@/components/CompanyModal.vue'
+import AppTablePagination from '@/components/ui/AppTablePagination.vue'
 import { columns } from '@/data/table-data'
 import type { ICompanyInfo } from '@/types/company.type'
 import { ref, watch, watchEffect } from 'vue'
@@ -105,7 +90,7 @@ function onSort(key: keyof ICompanyInfo) {
   }
 }
 
-const searchTerm = ref<string>('')
+const searchValue = ref<string>('')
 const pageSizeOptions = [5, 10, 20, 50]
 const pageSize = ref<number>(10)
 const currentPage = ref<number>(1)
@@ -115,23 +100,9 @@ watch(pageSize, () => {
   currentPage.value = 1
 })
 
-watch(searchTerm, () => {
+watch(searchValue, () => {
   currentPage.value = 1
 })
-
-function setPage(p: number) {
-  if (p < 1) p = 1
-  if (p > totalPages.value) p = totalPages.value
-  currentPage.value = p
-}
-
-function prevPage() {
-  if (currentPage.value > 1) currentPage.value -= 1
-}
-
-function nextPage() {
-  if (currentPage.value < totalPages.value) currentPage.value += 1
-}
 
 function onRowClick(row: ICompanyInfo) {
   companyData.value = row
@@ -173,7 +144,7 @@ function loadData() {
     pageSize: pageSize.value,
     sortKey: sortState.value.key,
     sortDirection: sortState.value.direction,
-    filterManagerName: searchTerm.value.trim() || null,
+    filterManagerName: searchValue.value.trim() || null,
   })
   tableData.value = data.items
   totalPages.value = data.totalPages
@@ -187,9 +158,6 @@ watchEffect(() => {
 <style scoped lang="scss">
 $border-color: #000;
 $muted-border: #ccc;
-$cell-padding: 5px 10px;
-$gap: 8px;
-$primary: #007bff;
 
 .table {
   $root: &;
@@ -203,7 +171,7 @@ $primary: #007bff;
   &__th,
   &__td {
     border: 1px solid $border-color;
-    padding: $cell-padding;
+    padding: 5px 10px;
     text-align: left;
   }
 
@@ -222,7 +190,7 @@ $primary: #007bff;
   &__header-actions {
     display: flex;
     margin-bottom: 8px;
-    gap: $gap;
+    gap: 8px;
 
     #{$root}__search {
       margin-bottom: 0;
@@ -243,37 +211,4 @@ $primary: #007bff;
     cursor: pointer;
   }
 }
-
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-
-    &__controls {
-      display: flex;
-      gap: $gap;
-      align-items: center;
-    }
-
-    &__page {
-      padding: 4px 8px;
-      border: 1px solid $muted-border;
-      background: #fff;
-      cursor: pointer;
-
-      .is-active {
-        background: $primary;
-        color: white;
-        border-color: $primary;
-      }
-    }
-
-
-    &__pagesize {
-      select {
-        margin-left: 6px;
-      }
-    }
-  }
 </style>

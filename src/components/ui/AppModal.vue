@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -80,34 +80,34 @@ onBeforeUnmount(() => {
   position: relative;
   padding: 16px;
   outline: none;
-}
 
-.modal__header {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
+  &__header {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
 
-.modal__body {
-  max-height: 60vh;
-  overflow: auto;
-}
+  &__body {
+    max-height: 60vh;
+    overflow: auto;
+  }
 
-.modal__footer {
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
+  &__footer {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
 
-.modal__close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
 }
 
 .modal-fade-enter-active,

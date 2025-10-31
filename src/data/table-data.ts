@@ -7,7 +7,6 @@ export const columns: Array<{ label: string, key: keyof ICompanyInfo }> = [
   { label: 'Адрес', key: 'address' },
 ];
 
-
 export const tableData: ICompanyInfo[] = [
   {
     id: 1,

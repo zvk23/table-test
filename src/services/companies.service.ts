@@ -1,23 +1,6 @@
 import type { ICompanyInfo } from '@/types/company.type';
-import { tableData as mockData, tableData } from '@/data/table-data';
-
-export type SortDirection = 'asc' | 'desc';
-
-export interface CompaniesQuery {
-  page?: number;
-  pageSize?: number;
-  sortKey?: keyof ICompanyInfo | null;
-  sortDirection?: SortDirection | null;
-  filterManagerName?: string | null;
-}
-
-export interface CompaniesResponse {
-  items: ICompanyInfo[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
-}
+import { tableData as mockData } from '@/data/table-data';
+import type { CompaniesQuery, CompaniesResponse } from '@/types/services/companies.type';
 
 const TABLE_DATA = JSON.parse(JSON.stringify(mockData)) as ICompanyInfo[];
 
@@ -29,7 +12,7 @@ function getSortableValue(item: ICompanyInfo, key: keyof ICompanyInfo): string |
   return item[key] as unknown as string | number;
 }
 
-export function getCompanies(query: CompaniesQuery = {}): CompaniesResponse {
+export const getCompanies = (query: CompaniesQuery = {}): CompaniesResponse => {
   const page = Math.max(1, query.page ?? 1);
   const pageSize = Math.max(1, query.pageSize ?? 10);
   const sortKey = query.sortKey ?? null;
