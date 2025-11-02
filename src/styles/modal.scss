@@ -1,0 +1,142 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  &__content {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #212529;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0.25rem;
+    cursor: pointer;
+    color: #868e96;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #212529;
+    }
+  }
+
+  &__form {
+    padding: 1.5rem;
+  }
+
+  &__form-field {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 500;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #228be6;
+      box-shadow: 0 0 0 3px rgba(34, 139, 230, 0.15);
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    &::placeholder {
+      color: #adb5bd;
+    }
+  }
+
+  &__footer {
+    padding: 1.5rem;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &--primary {
+      background: #228be6;
+      color: white;
+      border: none;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #74c0fc;
+      }
+    }
+
+    &--secondary {
+      background: white;
+      color: #495057;
+      border: 2px solid #dee2e6;
+
+      &:hover {
+        background: #f8f9fa;
+        border-color: #ced4da;
+      }
+
+      &:active {
+        background: #e9ecef;
+      }
+    }
+  }
+}

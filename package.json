@@ -1,0 +1,29 @@
+{
+  "name": "table-test-task",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Небольшой демонстрационный проект — реализация таблицы с пагинацией, поиском, сортировкой и CRUD-поддержкой.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zvk23/table-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zvk23/table-test/issues"
+  },
+  "homepage": "https://github.com/zvk23/table-test#readme",
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "sass": "^1.93.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
+}
